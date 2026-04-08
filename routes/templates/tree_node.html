@@ -1,0 +1,17 @@
+<div class="tree-node">
+    <span class="node-label">{{ tree.code }}</span>
+
+    {% if tree.children %}
+    <div class="children">
+        {% for child in tree.children %}
+        <div class="child">
+            <span class="branch">
+                {% if forloop.last %}└──{% else %}├──{% endif %}
+            </span>
+
+            {% include "tree_node.html" with tree=child %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>

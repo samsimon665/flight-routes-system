@@ -3,6 +3,131 @@
 
 <head>
     <title>Flight Routes System</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+    
+        /* Tree container */
+        .tree-node {
+            margin: 10px 0;
+        }
+    
+        /* Node box */
+        .node-label {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: #f3f4f6;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+    
+        /* Children block */
+        .children {
+            margin-left: 25px;
+            padding-left: 10px;
+            border-left: 2px solid #ccc;
+        }
+    
+        /* Each child row */
+        .child {
+            margin: 6px 0;
+            position: relative;
+        }
+    
+        /* Branch symbol */
+        .branch {
+            font-family: monospace;
+            color: #666;
+            margin-right: 5px;
+        }
+    
+        /* Navbar container */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1f2937;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+    
+        /* Logo */
+        .logo {
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 18px;
+        }
+    
+        /* Nav links container */
+        .nav-right a {
+            color: #d1d5db;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+    
+        /* Hover effect */
+        .nav-right a:hover {
+            color: #ffffff;
+        }
+    
+        /* Active click feel */
+        .nav-right a:active {
+            transform: scale(0.95);
+        }
+
+        /* Center container */
+        .form-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+    
+        /* Inner form box */
+        .form-container form {
+            width: 350px;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+    
+        /* Heading */
+        .form-container h2 {
+            text-align: center;
+        }
+    
+        /* Inputs */
+        .form-container input,
+        .form-container select {
+            width: 100%;
+            padding: 6px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+    
+        /* Button */
+        .form-container button {
+            width: 100%;
+            padding: 8px;
+            background-color: #1f2937;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    
+        /* Hover */
+        .form-container button:hover {
+            background-color: #374151;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -11,17 +136,36 @@
 
     <hr>
 
-    <nav>
-        <a href="/">Add Route</a> |
-        <a href="/nth/">Nth Node</a> |
-        <a href="/longest/">Longest Route</a> |
-        <a href="/shortest/">Shortest Path</a>
-    </nav>
+    <div class="navbar">
+        <div class="nav-left">
+            <span class="logo">✈ Flight Routes</span>
+        </div>
+    
+        <div class="nav-right">
+            <a href="{% url 'add_airport' %}">Add Airport</a>
+            <a href="{% url 'add_route' %}">Add Route</a>
+            <a href="{% url 'nth_node' %}">Nth Node</a>
+            <a href="{% url 'longest_route' %}">Longest</a>
+            <a href="{% url 'shortest_path' %}">Shortest</a>
+        </div>
+    </div>
 
     <hr>
 
     {% block content %}
     {% endblock %}
+
+    <hr>
+
+    <h3>Airport Network</h3>
+
+    {% if tree %}
+    <div>
+        {% include "tree_node.html" with tree=tree %}
+    </div>
+    {% else %}
+    <p>No data available</p>
+    {% endif %}
 
 </body>
 

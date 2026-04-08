@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h2>Find Shortest Path</h2>
+<h2>Add Airport</h2>
 
 <div class="form-container">
     
@@ -10,12 +10,8 @@
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Find</button>
+        <button type="submit">Add Airport</button>
     </form>
-
-    {% if result %}
-    <p><strong>Result:</strong> {{ result }}</p>
-    {% endif %}
 </div>
 
 {% endblock %}
