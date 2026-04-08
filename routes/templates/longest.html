@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Longest Route</h2>
+
+{% if route %}
+<p>
+    {{ route.from_airport.code }} →
+    {{ route.to_airport.code }}
+    ({{ route.duration }})
+</p>
+{% else %}
+<p>No routes available</p>
+{% endif %}
+
+{% endblock %}
