@@ -1,6 +1,5 @@
 from django.db import models
-
-# Create your models here.
+from django.core.exceptions import ValidationError
 
 
 class Airport(models.Model):
@@ -38,6 +37,13 @@ class Route(models.Model):
                 name='unique_position_per_airport'
             )
         ]
+        indexes = [
+            models.Index(fields=['from_airport']),
+        ]
+
+    def clean(self):
+        if self.from_airport == self.to_airport:
+            raise ValidationError("Route cannot point to the same airport.")
 
     def __str__(self):
-        return f"{self.from_airport} → {self.to_airport} ({self.duration})"
+        return f"{self.from_airport.code} → {self.to_airport.code} ({self.duration})"
